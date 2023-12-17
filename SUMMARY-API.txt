@@ -41,7 +41,32 @@ https://asharilabs.000webhostapp.com/rumahhijau/api/getdistribusisuhu.php
 }
 
 
+// ------------------------------------------------------------------------------------------
+bahasan video
+IOT
+. menyewa hostingan gratis di webhost000 (v)
+. merancang DB untuk data dht (v)
+. membuat API insert data DHT (v)
+. membuat 3 API get data (v)
+. testing smw API pake POSTMAN (v)
 
+. merangkai dht di wokwi + pembacaan sensor (v)
+. implementasi HTTPRequest di wokwi untuk hit api (v)
+. implementasi network time protocol (v)
+	- firmware deteksi untuk jam 8.00, jam 10.00
 
+// ------------------------------------- 
+Enhancement HTTP Request dan NTP Server
+. Perbaikan http request code = -1 (v) --> menghapus https menjadi http
+. Server NTP gk narik data (v) --> menggunakan NTP Server
+// -------------------------------------
 
+. menyiapkan infrastuktur mqtt
+. menyiapkan broker mqtt
+. implementasi mqtt publish di firmware/esp32
+. implementasi mqtt subscribe di firmware/esp32
 
+. merancang tampilan aplikasi kotlin
+. implementasi pembacaan json ke front end
+. implementasi konfigurasi mqtt pub-sub
+. implementasi grafik
