@@ -1,0 +1,47 @@
+SUMMARY
+1. base url, https://asharilabs.000webhostapp.com/rumahhijau/
+2. API input, https://asharilabs.000webhostapp.com/rumahhijau/api/insertdata.php?suhu=32.7&humid=40.48
+3. API get informasi min, max, rata-rata dari suhu+kelembapan
+https://asharilabs.000webhostapp.com/rumahhijau/api/getsummarydata.php
+{
+	"suhu_min" 	: 24,
+	"suhu_max" 	: 34,
+	"suhu_rata"	: 32,
+	"humid_min"	: 23,
+	"humid_max"	: 34,
+	"humid_rata"	: 34
+}
+
+4. API get informasi rata-rata suhu+kelembapan dari x hari terakhir (x = 5)
+https://asharilabs.000webhostapp.com/rumahhijau/api/rataratahariterakhir.php?hari=2
+{
+	"ratasuhu"	: 32,
+	"ratahumid"	: 39
+}
+
+5. API distribusi banyaknya hari pada 3 suhu maksimum teratas
+https://asharilabs.000webhostapp.com/rumahhijau/api/getdistribusisuhu.php
+
+{
+	"suhu" : [
+		{
+			"nilai"	: 100,
+			"tgl"	: ["tgl1", "tgl2"]
+		},
+		{
+			"nilai"	: 90,
+			"tgl"	: ["tgl1"]
+		},
+		{
+			"nilai"	: 40,
+			"tgl"	: ["tgl1", "tgl2"]
+		}
+	]
+
+}
+
+
+
+
+
+
