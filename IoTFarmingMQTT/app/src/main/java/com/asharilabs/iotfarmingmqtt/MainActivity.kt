@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import info.mqtt.android.service.MqttAndroidClient
 import org.eclipse.paho.client.mqttv3.IMqttActionListener
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken
@@ -18,12 +19,18 @@ import org.eclipse.paho.client.mqttv3.MqttMessage
 class MainActivity : AppCompatActivity() {
 
     private lateinit var mqttAndroidClient: MqttAndroidClient
+    private lateinit var _streaming_humi: TextView
+    private lateinit var _streaming_suhu: TextView
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        //
+        _streaming_humi = findViewById(R.id.streaming_humi)
+        _streaming_suhu = findViewById(R.id.streaming_temp)
+        // -------------------------------------------------------
         val _btn = findViewById<Button>(R.id.streaming_connectBroker)
         _btn.setOnClickListener {
             connect(this)
@@ -48,7 +55,15 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun messageArrived(topic: String?, message: MqttMessage?) {
-                Log.d("galihasharir", "message: " + message.toString())
+                Log.d("galihasharir", "incoming: " + message.toString())
+
+                // isikan data mqtt ke UI
+                if( topic.equals("asharilabs/suhu")){
+                    _streaming_suhu.setText(message.toString())
+                }
+                else if( topic.equals("asharilabs/humi")){
+                    _streaming_humi.setText(message.toString())
+                }
             }
 
             override fun deliveryComplete(token: IMqttDeliveryToken?) {
@@ -63,6 +78,7 @@ class MainActivity : AppCompatActivity() {
                 override fun onSuccess(asyncActionToken: IMqttToken){
                     Log.d("galihasharir", "Broker Connected")
                     subscribe("asharilabs/suhu")
+                    subscribe("asharilabs/humi")
                     //connectionStatus = true
                     // Give your callback on connection established here
                 }
