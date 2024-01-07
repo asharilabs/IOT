@@ -43,6 +43,8 @@ dependencies {
     //new mqtt library that supports android 12
     implementation ("androidx.legacy:legacy-support-v4:1.0.0")
     implementation ("com.github.hannesa2:paho.mqtt.android:4.2")
+    implementation ("com.github.AAChartModel:AAChartCore-Kotlin:-SNAPSHOT")
+    //
 
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.6.1")

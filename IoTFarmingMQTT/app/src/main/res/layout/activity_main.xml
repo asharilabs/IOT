@@ -108,6 +108,11 @@
                         android:layout_weight="1"
                         android:text="20"/>
                 </LinearLayout>
+                <com.github.aachartmodel.aainfographics.aachartcreator.AAChartView
+                    android:id="@+id/streaming_chart_suhu"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp">
+                </com.github.aachartmodel.aainfographics.aachartcreator.AAChartView>
             </LinearLayout>
 
             <Space
@@ -135,6 +140,11 @@
                         android:layout_weight="1"
                         android:text="75"/>
                 </LinearLayout>
+                <com.github.aachartmodel.aainfographics.aachartcreator.AAChartView
+                    android:id="@+id/streaming_chart_humi"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp">
+                </com.github.aachartmodel.aainfographics.aachartcreator.AAChartView>
             </LinearLayout>
 
             <LinearLayout

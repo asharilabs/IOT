@@ -7,6 +7,14 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+<<<<<<< Updated upstream
+=======
+import android.widget.TextView
+import com.github.aachartmodel.aainfographics.aachartcreator.AAChartModel
+import com.github.aachartmodel.aainfographics.aachartcreator.AAChartType
+import com.github.aachartmodel.aainfographics.aachartcreator.AAChartView
+import com.github.aachartmodel.aainfographics.aachartcreator.AASeriesElement
+>>>>>>> Stashed changes
 import info.mqtt.android.service.MqttAndroidClient
 import org.eclipse.paho.client.mqttv3.IMqttActionListener
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken
@@ -19,11 +27,25 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var mqttAndroidClient: MqttAndroidClient
 
+    private lateinit var _streaming_chart_suhu: AAChartView
+    private lateinit var _streaming_chart_humi: AAChartView
+
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+<<<<<<< Updated upstream
+=======
+        //
+        _streaming_humi = findViewById(R.id.streaming_humi)
+        _streaming_suhu = findViewById(R.id.streaming_temp)
+        // -------------------------------------------------------
+        _streaming_chart_suhu = findViewById(R.id.streaming_chart_suhu)
+        _streaming_chart_humi = findViewById(R.id.streaming_chart_humi)
+
+        // -------------------------------------------------------
+>>>>>>> Stashed changes
         val _btn = findViewById<Button>(R.id.streaming_connectBroker)
         _btn.setOnClickListener {
             connect(this)
@@ -34,6 +56,32 @@ class MainActivity : AppCompatActivity() {
         _btn2.setOnClickListener {
             publish("galihashari", _input.text.toString())
         }
+    }
+
+    var _dataSuhu : ArrayList<Double> = ArrayList<Double>()
+    var _dataHumi : ArrayList<Double> = ArrayList<Double>()
+
+    fun BikininGrafik(_nilai: Double, _charview: AAChartView, _data: ArrayList<Double>){
+        val aaChartModel : AAChartModel = AAChartModel()
+            .chartType(AAChartType.Area)
+            .title("Monitoring Suhu")
+            .subtitle("mqtt data")
+            .dataLabelsEnabled(false)
+
+        // bikin datanya
+        _data.add(_nilai)
+
+        var _aaseries : Array<AASeriesElement> =
+            arrayOf(AASeriesElement()
+                .name("Suhu").data(_data.toArray()))
+
+        aaChartModel.series(arrayOf(_aaseries))
+
+        //The chart view object calls the instance object of AAChartModel and draws the final graphic
+        _charview.post(Runnable {
+            _charview.aa_drawChartWithChartModel(aaChartModel)
+            _charview.aa_onlyRefreshTheChartDataWithChartOptionsSeriesArray(_aaseries)
+        })
     }
 
     fun connect(applicationContext : Context) {
@@ -48,7 +96,21 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun messageArrived(topic: String?, message: MqttMessage?) {
+<<<<<<< Updated upstream
                 Log.d("galihasharir", "message: " + message.toString())
+=======
+                Log.d("galihasharir", "incoming: " + message.toString())
+
+                // isikan data mqtt ke UI
+                if( topic.equals("asharilabs/suhu")){
+                    _streaming_suhu.setText(message.toString())
+                    BikininGrafik(message.toString().toDouble(), _streaming_chart_suhu, _dataSuhu)
+                }
+                else if( topic.equals("asharilabs/humi")){
+                    _streaming_humi.setText(message.toString())
+                    BikininGrafik(message.toString().toDouble(), _streaming_chart_humi, _dataHumi)
+                }
+>>>>>>> Stashed changes
             }
 
             override fun deliveryComplete(token: IMqttDeliveryToken?) {
