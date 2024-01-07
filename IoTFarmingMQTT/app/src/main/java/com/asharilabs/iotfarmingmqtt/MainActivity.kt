@@ -7,14 +7,11 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
-<<<<<<< Updated upstream
-=======
 import android.widget.TextView
 import com.github.aachartmodel.aainfographics.aachartcreator.AAChartModel
 import com.github.aachartmodel.aainfographics.aachartcreator.AAChartType
 import com.github.aachartmodel.aainfographics.aachartcreator.AAChartView
 import com.github.aachartmodel.aainfographics.aachartcreator.AASeriesElement
->>>>>>> Stashed changes
 import info.mqtt.android.service.MqttAndroidClient
 import org.eclipse.paho.client.mqttv3.IMqttActionListener
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken
@@ -26,6 +23,8 @@ import org.eclipse.paho.client.mqttv3.MqttMessage
 class MainActivity : AppCompatActivity() {
 
     private lateinit var mqttAndroidClient: MqttAndroidClient
+    private lateinit var _streaming_humi: TextView
+    private lateinit var _streaming_suhu: TextView
 
     private lateinit var _streaming_chart_suhu: AAChartView
     private lateinit var _streaming_chart_humi: AAChartView
@@ -35,17 +34,15 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-<<<<<<< Updated upstream
-=======
         //
         _streaming_humi = findViewById(R.id.streaming_humi)
         _streaming_suhu = findViewById(R.id.streaming_temp)
         // -------------------------------------------------------
+
         _streaming_chart_suhu = findViewById(R.id.streaming_chart_suhu)
         _streaming_chart_humi = findViewById(R.id.streaming_chart_humi)
 
         // -------------------------------------------------------
->>>>>>> Stashed changes
         val _btn = findViewById<Button>(R.id.streaming_connectBroker)
         _btn.setOnClickListener {
             connect(this)
@@ -96,9 +93,6 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun messageArrived(topic: String?, message: MqttMessage?) {
-<<<<<<< Updated upstream
-                Log.d("galihasharir", "message: " + message.toString())
-=======
                 Log.d("galihasharir", "incoming: " + message.toString())
 
                 // isikan data mqtt ke UI
@@ -110,7 +104,9 @@ class MainActivity : AppCompatActivity() {
                     _streaming_humi.setText(message.toString())
                     BikininGrafik(message.toString().toDouble(), _streaming_chart_humi, _dataHumi)
                 }
->>>>>>> Stashed changes
+                else if( topic.equals("asharilabs/humi")){
+                    _streaming_humi.setText(message.toString())
+                }
             }
 
             override fun deliveryComplete(token: IMqttDeliveryToken?) {
@@ -125,6 +121,7 @@ class MainActivity : AppCompatActivity() {
                 override fun onSuccess(asyncActionToken: IMqttToken){
                     Log.d("galihasharir", "Broker Connected")
                     subscribe("asharilabs/suhu")
+                    subscribe("asharilabs/humi")
                     //connectionStatus = true
                     // Give your callback on connection established here
                 }
